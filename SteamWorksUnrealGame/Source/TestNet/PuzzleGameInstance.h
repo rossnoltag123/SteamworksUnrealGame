@@ -6,6 +6,7 @@
 #include "Engine/GameInstance.h"
 #include "MenuInterface.h"
 #include "OnlineSubsystem.h"
+#include "OnlineSessionInterface.h"
 #include "PuzzleGameInstance.generated.h"
 
 /**
@@ -34,30 +35,40 @@ public:
 		void Host() override;
 
 		UFUNCTION(Exec)
-		void Join(const FString& Address) override;
+		void Join(uint32 Index) override;
 
 		virtual void LoadMainMenu() override;
 
+		//Look for this RefreshServerList....
+		//If you want to overide a function, you need to
+		//mark the function in the base class with virtual
+		//Map to correct overriden fucntion at runtime
+		virtual void RefreshServerList() override;
 
 private:
 	TSubclassOf<class UUserWidget> MainMenu_ClassProperty;
 	TSubclassOf<class UUserWidget> InGameOverlay_ClassProperty;
+	TSubclassOf<class UUserWidget> Servers_ClassProperty;
 
 	class UMainMenu* Menu;
+	class UServers* ServerName;
 	class UInGameOverlay* Overlay;
 	const FString GetHost(UObject* WorldContextObject);
 
 	IOnlineSessionPtr SessionInterface;
 
-	TSharedPtr<class FOnlineSessionSearch> SessionSearch;
+	//TSharedPtr Revise----------------------------------------------------------------
+	TSharedPtr<class FOnlineSessionSearch> FindSession;
 
 	//Call backs for delegates...
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
 	void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);
 	void OnFindSessionsComplete(bool bWasSuccessful);
+	void OnJoinSessionsComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 
 	void ServerTravel();
+
 	void CreateSession();
 	void DestroySession();
-	void SessionFound();
+	void SearchSession();
 };

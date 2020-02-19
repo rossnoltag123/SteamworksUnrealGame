@@ -1,0 +1,8 @@
+Steamworks-Unreal setup
+
+Destroy session if session exists
+Create session
+Start session
+
+If we know a session exists, then we can Find Session.
+

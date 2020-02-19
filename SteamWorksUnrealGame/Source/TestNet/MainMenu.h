@@ -6,7 +6,6 @@
 #include "MenuWidget.h"
 #include "MainMenu.generated.h"
 
-
 /**
  * This class is a child class of UUserWidget ": public UUserWidget, public IMenuInterface"
  * parent class wont display ": public UUserWidget, public IMenuInterface"
@@ -17,10 +16,19 @@ class TESTNET_API UMainMenu : public UMenuWidget
 {
 	GENERATED_BODY()
 
+public:
+	UMainMenu(const FObjectInitializer & ObjectInitializer);
+
+	void SetServerList(TArray<FString>ServerNames);
+
+	void SelectIndex(uint32 Index);
+
 protected:
 	virtual bool Initialize();
 
 private:
+	TSubclassOf<class UUserWidget> BP_Servers_ClassProperty;
+	
 	//Main menu buttons
 	UPROPERTY(meta = (BindWidget))
 	class UButton* HostButton;
@@ -36,20 +44,32 @@ private:
 	class UButton* BackButton;
 
 	UPROPERTY(meta = (BindWidget))
-    class UButton* JoinButton;
+	class UButton* JoinButton;
 
+	UPROPERTY(meta = (BindWidget))
+	class UButton* RefreshButton;
+	         
 	//Widgets
 	UPROPERTY(meta = (BindWiget))
 	class UWidgetSwitcher* WidgetSwitcher;
 
 	UPROPERTY(meta = (BindWiget))
-	class  UWidget* JoinMenu;
+	class UWidget* JoinMenu;
 
 	UPROPERTY(meta = (BindWiget))
-	class  UWidget* MainMenu;
+	class UWidget* MainMenu;
 
+	//Other
 	UPROPERTY(meta = (BindWiget))
-	class  UEditableTextBox* IPAddressField;
+	class UTextBlock* Textblock_ServerName;
+
+public:
+	UPROPERTY(meta = (BindWiget))
+	class UPanelWidget* ScrollBox_Servers;
+
+private:
+	UPROPERTY(meta = (BindWiget))
+	class UPanelWidget* IPAddressField;
 
 	//Functions
 	UFUNCTION()
@@ -66,4 +86,11 @@ private:
 
 	UFUNCTION()
 	void QuitGame();
+
+	UFUNCTION()
+	void RefreshServerList();
+
+	const FString GetHostAddress(UObject* WorldContextObject);
+
+	TOptional<uint32> SelectedIndex;
 };
