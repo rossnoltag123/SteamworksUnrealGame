@@ -24,8 +24,8 @@ class TESTNET_API IMenuInterface
 public:
 	//pure virtual function- empty virtual function
 	//just being used to call Host() in main menu, no logic in .cpp
-	virtual void Host()= 0;
-	virtual void Join(uint32 Index)= 0;
+	virtual void Host(FString ServerName)= 0;
+	virtual void JoinSession(uint32 Index)= 0;
 	virtual void LoadMainMenu()=0;
 	//Refresh list is abstract, setting to zero
 	virtual void RefreshServerList()=0;

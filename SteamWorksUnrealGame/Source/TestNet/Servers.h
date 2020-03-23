@@ -15,12 +15,24 @@ class TESTNET_API UServers : public UUserWidget
 	GENERATED_BODY()
 
 public:
+
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* ServerName;
 
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* HostUsername;
+
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* ConnectionFraction;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool Selected = false;
+
+public:
 	void Setup(class UMainMenu* Parent, uint32 Index);
 
 private:
+
 	UPROPERTY(meta = (BindWidget))
 	class UButton* ServerButton;
 

@@ -11,6 +11,7 @@ void UServers::Setup(class UMainMenu* InParent, uint32 InIndex)
 	ServerButton->OnClicked.AddDynamic(this, &UServers::OnClicked);
 }
 
-void UServers::OnClicked(){
+void UServers::OnClicked()
+{
 	Parent->SelectIndex(Index);
 }

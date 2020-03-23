@@ -32,10 +32,10 @@ public:
 		void InGameLoadMenu();
 
 		UFUNCTION(Exec)
-		void Host() override;
+		void Host(FString ServerName) override;
 
 		UFUNCTION(Exec)
-		void Join(uint32 Index) override;
+		void JoinSession(uint32 Index) override;
 
 		virtual void LoadMainMenu() override;
 
@@ -45,6 +45,9 @@ public:
 		//Map to correct overriden fucntion at runtime
 		virtual void RefreshServerList() override;
 
+		void StartSession();
+		//uint16 NumPubConnections = 3;
+	
 private:
 	TSubclassOf<class UUserWidget> MainMenu_ClassProperty;
 	TSubclassOf<class UUserWidget> InGameOverlay_ClassProperty;
@@ -68,7 +71,10 @@ private:
 
 	void ServerTravel();
 
+	FString IdealServerName;
+
 	void CreateSession();
 	void DestroySession();
 	void SearchSession();
+
 };
